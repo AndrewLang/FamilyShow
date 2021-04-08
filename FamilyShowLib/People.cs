@@ -1,6 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
@@ -391,10 +392,11 @@ namespace Microsoft.FamilyShowLib
         PeopleCollection.IsDirty = false;
         return;
       }
-      catch
+      catch(Exception e)
       {
-        // Could not load the file. Handle all exceptions
-        // the same, ignore and continue.
+                // Could not load the file. Handle all exceptions
+                // the same, ignore and continue.
+                Debug.WriteLine(e.Message);
         fullyQualifiedFilename = string.Empty;
       }
     }

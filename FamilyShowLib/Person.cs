@@ -564,48 +564,50 @@ namespace Microsoft.FamilyShowLib
     [XmlIgnore]
     public bool IsDeletable
     {
-      get
-      {
-        // With a few exceptions, anyone with less than 3 relationships is deletable
-        if (relationships.Count < 3)
-        {
-          // The person has 2 spouses. Since they connect their spouses, they are not deletable.
-          if (Spouses.Count == 2)
-          {
-            return false;
-          }
+            get
+            {
+                return true;
+            }
+      //  // With a few exceptions, anyone with less than 3 relationships is deletable
+      //  if (relationships.Count < 3)
+      //  {
+      //    // The person has 2 spouses. Since they connect their spouses, they are not deletable.
+      //    if (Spouses.Count == 2)
+      //    {
+      //      return false;
+      //    }
 
-          // The person is connecting two generations
-          if (Parents.Count == 1 && Children.Count == 1)
-          {
-            return false;
-          }
+      //    // The person is connecting two generations
+      //    if (Parents.Count == 1 && Children.Count == 1)
+      //    {
+      //      return false;
+      //    }
 
-          // The person is connecting inlaws
-          if (Parents.Count == 1 && Spouses.Count == 1)
-          {
-            return false;
-          }
+      //    // The person is connecting inlaws
+      //    if (Parents.Count == 1 && Spouses.Count == 1)
+      //    {
+      //      return false;
+      //    }
 
-          // Anyone else with less than 3 relationships is deletable
-          return true;
-        }
+      //    // Anyone else with less than 3 relationships is deletable
+      //    return true;
+      //  }
 
-        // More than 3 relationships, however the relationships are from only Children. 
-        if (Children.Count > 0 && Parents.Count == 0 && Siblings.Count == 0 && Spouses.Count == 0)
-        {
-          return true;
-        }
+      //  // More than 3 relationships, however the relationships are from only Children. 
+      //  if (Children.Count > 0 && Parents.Count == 0 && Siblings.Count == 0 && Spouses.Count == 0)
+      //  {
+      //    return true;
+      //  }
 
-        // More than 3 relationships. The relationships are from siblings. Deletable since siblings are connected to each other or the parent.
-        if (Siblings.Count > 0 && Parents.Count >= 0 && Spouses.Count == 0 && Children.Count == 0)
-        {
-          return true;
-        }
+      //  // More than 3 relationships. The relationships are from siblings. Deletable since siblings are connected to each other or the parent.
+      //  if (Siblings.Count > 0 && Parents.Count >= 0 && Spouses.Count == 0 && Children.Count == 0)
+      //  {
+      //    return true;
+      //  }
 
-        // This person has complicated dependencies that does not allow deletion.
-        return false;
-      }
+      //  // This person has complicated dependencies that does not allow deletion.
+      //  return false;
+      //}
     }
 
     /// <summary>
@@ -1086,7 +1088,7 @@ namespace Microsoft.FamilyShowLib
         Collection<Person> spouses = Spouses;
 
         string spousesText = string.Empty;
-        if (spouses.Count > 0)
+        if (spouses.Count > 0 && spouses[0] != null)
         {
           spousesText = spouses[0].Name;
 
@@ -1144,7 +1146,7 @@ namespace Microsoft.FamilyShowLib
         Collection<Person> children = Children;
 
         string childrenText = string.Empty;
-        if (children.Count > 0)
+        if (children.Count > 0 && children[0] != null)
         {
           childrenText = children[0].Name;
 
